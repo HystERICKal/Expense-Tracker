@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:expense_tracker/screens/home/views/main_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -6,16 +9,50 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //whole viewable app area
     return Scaffold(
-      appBar: AppBar(),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.home), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.graph_square_fill), label: 'Stats')
-        ],
+      // appBar: AppBar(), //add top appbar
+      bottomNavigationBar: ClipRRect(
+        //make navbar edges curved
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
+        //add bottom navbar
+        child: BottomNavigationBar(
+          backgroundColor: Colors.white, //navbar background color
+          showSelectedLabels: false, //remove label from selected navbar icon
+          showUnselectedLabels:
+              false, //remove label from unselected navbar icon
+          elevation: 3,
+          items: const [
+            //navbar icons
+            BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.home), label: 'Home'),
+            BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.graph_square_fill), label: 'Stats')
+          ],
+        ),
       ),
+      //set the floating action button location
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      //create the floating action button
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {}, //what happens when pressed?
+        shape: const CircleBorder(), //set shape to circular
+        child: Container(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  colors: [
+                    Theme.of(context).colorScheme.tertiary,
+                    Theme.of(context).colorScheme.secondary,
+                    Theme.of(context).colorScheme.primary,
+                  ],
+                  transform: const GradientRotation(pi / 4),
+                )),
+            child: const Icon(CupertinoIcons.add)), //plus icon
+      ),
+      body: const MainScreen(),
     );
   }
 }
